@@ -1,0 +1,16 @@
+{% extends "pages/base.html" %} {% block title %}Open Positions{% endblock %} {% block content %}
+<form action="{% url 'search' %}" method="GET" style="margin: 5px;">
+    <input name="q" type="text" placeholder="Search...">
+</form>
+<div class="list-group">
+    {% for post in Posts %}
+    <div class="list-group-item list-group-item-action active" aria-current="true">
+        <a href="/blog/{{post.id}}" class="d-flex w-100 justify-content-between" style="color: wheat">
+            <h3 class="mb-1">{{post.title}}</h3>
+            <small>{{post.createAt|date:"d-m-Y"}}</small>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+<br/> {% if page_obj.has_next %}
+<a href="{{request.path}}?page={{page_obj.next_page_number}}">Tiếp theo</a> {% endif %} {% endblock %}
